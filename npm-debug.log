@@ -1,0 +1,33 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'devStart'
+1 verbose cli ]
+2 info using npm@3.10.10
+3 info using node@v12.13.0
+4 verbose run-script [ 'predevStart', 'devStart', 'postdevStart' ]
+5 info lifecycle Big-project@1.0.0~predevStart: Big-project@1.0.0
+6 silly lifecycle Big-project@1.0.0~predevStart: no script for predevStart, continuing
+7 info lifecycle Big-project@1.0.0~devStart: Big-project@1.0.0
+8 verbose lifecycle Big-project@1.0.0~devStart: unsafe-perm in lifecycle true
+9 verbose lifecycle Big-project@1.0.0~devStart: PATH: C:\Users\Admin\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;C:\Users\Admin\Desktop\Big-project\node_modules\.bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Admin\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn;C:\Program Files\Microsoft SQL Server\140\Tools\Binn;C:\Program Files\Microsoft SQL Server\140\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn;C:\Program Files\nodejs;C:\Users\Admin\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\Admin\AppData\Local\Programs\Python\Python38-32;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;C:\Users\Admin\AppData\Local\GitHubDesktop\bin;C:\Users\Admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Admin\AppData\Roaming\npm;C:\Program Files\heroku\bin
+10 verbose lifecycle Big-project@1.0.0~devStart: CWD: C:\Users\Admin\Desktop\Big-project
+11 silly lifecycle Big-project@1.0.0~devStart: Args: [ '/d /s /c', 'nodemon server.js' ]
+12 verbose stack Error: kill ENOSYS
+12 verbose stack     at process.kill (internal/process/per_thread.js:189:13)
+12 verbose stack     at process.listener (C:\Users\Admin\AppData\Roaming\npm\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:86:15)
+12 verbose stack     at process.emit (events.js:215:7)
+13 verbose cwd C:\Users\Admin\Desktop\Big-project
+14 error Windows_NT 10.0.14393
+15 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "run" "devStart"
+16 error node v12.13.0
+17 error npm  v3.10.10
+18 error code ENOSYS
+19 error errno ENOSYS
+20 error syscall kill
+21 error kill ENOSYS
+22 error If you need help, you may report this error at:
+22 error     <https://github.com/npm/npm/issues>
+23 verbose exit [ 1, true ]
