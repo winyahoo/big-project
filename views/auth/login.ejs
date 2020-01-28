@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+    <div class="d1"></div>
+    <% if (locals.errors != null) { %>
+        <% locals.errors.forEach(error => { %>
+            <div class="alert alert-danger "> <%= error %> </div>
+        <% })} %>
+<div class="form">
+    <form action="/auth/login" method="POST">
+        <h2>Login Form</h2>
+        <div class="form-item">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required class="txtb">
+        </div>
+        <div class="form-item">
+            <label for="password">Password</label>
+            <input type="text" id="Pw" name="password" required class="txtb">
+        </div>
+        <div class="">
+            <input type="checkbox" name="remember" id="">Remember Me
+        </div>
+        <input class="btn btn-primary" type="submit" value="Login">
+        <a href="/auth/register" style="text-decoration: none; color: #b1e2f8;">Register</a>
+    </form>
+    
+</div>
+
+</body>
+</html>

@@ -3,13 +3,17 @@ if(process.env.NODE_ENV !== 'production'){
 }
 const express = require('express')
 const app = express()
+
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
 
 const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
+const authRouter = require('./routes/auth')
+
 
 
 app.set('view engine', 'ejs')
@@ -19,6 +23,7 @@ app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({limit:'10mb', extended: false}))
+app.use(cookieParser(process.env.SESSION_SECRET))
 
 
 const mongoose = require('mongoose')
@@ -30,6 +35,6 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRouter)
 app.use('/authors', authorRouter)
 app.use('/books', bookRouter)
-
+app.use('/auth', authRouter)
 
 app.listen(process.env.PORT || 3000)

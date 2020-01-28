@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Author = require ('../models/authors')
 const Book = require('../models/books')
+const checkAuth = require('../middleware/checkAuth')
+
 // All Authors Route
 router.get('/', async (req, res) =>{
     let searchOptions = {}
@@ -20,7 +22,7 @@ router.get('/', async (req, res) =>{
 })
 
 //New Author Route
-router.get('/new', (req, res) =>{
+router.get('/new',checkAuth.checkAuthenticated ,(req, res) =>{
     res.render('authors/new', {author: new Author() })
 })
 
@@ -29,6 +31,14 @@ router.post('/', async (req,res) =>{
     const author = new Author({
         name: req.body.name
     })
+    const existedAuthor = await Author.exists({"name": req.body.name})
+    if(existedAuthor){
+        res.render('authors/new', {
+            author: author,
+            errorMessage: 'Existed Author'
+            })
+        return     
+    }
     try {
         const newAuthor = await author.save()
         res.redirect(`authors/${newAuthor.id}`)
@@ -67,6 +77,14 @@ router.put('/:id', async (req, res) =>{
     let author
     try {
         author = await Author.findById(req.params.id)
+        existedAuthor = await Author.exists({"name": req.body.name})
+        if(existedAuthor){
+            res.render('authors/edit', {
+                author: author,
+                errorMessage: 'Existed Author'
+                })
+            return  
+        }
         author.name = req.body.name
         await author.save()
         res.redirect(`/authors/${author.id}`)
@@ -84,6 +102,14 @@ router.put('/:id', async (req, res) =>{
 })
 //Delete Author
 router.delete('/:id', async(req, res) =>{
+    const existedAuthor = await Author.exists({"name": req.body.name})
+    if(existedAuthor){
+        res.render('authors/edit', {
+            author: author,
+            errorMessage: 'Existed Author'
+            })
+        return     
+    }
     let author
     try {
         author = await Author.findById(req.params.id)
@@ -98,5 +124,6 @@ router.delete('/:id', async(req, res) =>{
         }
     }   
 })
+
 
 module.exports = router

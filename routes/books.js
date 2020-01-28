@@ -3,6 +3,7 @@ const router = express.Router()
 const Book = require ('../models/books')
 const Author = require('../models/authors')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif']
+const checkAuth = require('../middleware/checkAuth')
 
 // All Books Route
 router.get('/', async (req, res) =>{
@@ -28,7 +29,7 @@ router.get('/', async (req, res) =>{
 })
 
 //New Book Route 
-router.get('/new', async (req, res) =>{
+router.get('/new', checkAuth.checkAuthenticated, async (req, res) =>{
     renderNewPage(res, new Book(), )
 })
 
@@ -41,6 +42,11 @@ router.post('/', async (req,res) =>{
        pageCount: req.body.pageCount,
        description: req.body.description
    })
+   const existedBook = await Book.exists({"title": req.body.title})
+   if(existedBook){
+        renderNewPage(res, book, true, true)
+       return     
+   }
    saveCover(book, req.body.cover)
    try {
        const newBook = await book.save()
@@ -79,6 +85,11 @@ router.put('/:id', async (req,res) =>{
        book.publishDate= new Date(req.body.publishDate)
        book.pageCount= req.body.pageCount
        book.description = req.body.description
+       const existedBook = await Book.exists({"title": req.body.title})
+        if(existedBook){
+            renderEditPage(res, book, true, true)
+            return
+        }
        if(req.body.cover != null  && req.body.cover != ''){
            saveCover(book,req.body.cover)
        }
@@ -111,7 +122,7 @@ router.delete('/:id', async (req,res) =>{
     }
 })
 
-async function renderFormPage(res, book, form ,hasError = false){
+async function renderFormPage(res, book, form ,hasError = false, existedBook = false){
     try{
         const authors= await Author.find({})
         const params = {
@@ -125,17 +136,20 @@ async function renderFormPage(res, book, form ,hasError = false){
                 params.errorMessage = 'Error Creating Book'
             }
         }
+        if(existedBook){
+            params.errorMessage = 'Existed Book'
+        }
         res.render(`books/${form}`, params)
     }catch{
         res.redirect('/books')
     }
 }
-async function renderNewPage(res, book, hasError = false){
-    renderFormPage(res,book,'new', hasError)
+async function renderNewPage(res, book, hasError = false, existedBook = false){
+    renderFormPage(res,book,'new', hasError, existedBook)
 }
 
-async function renderEditPage(res, book, hasError = false){
-   renderFormPage(res,book, 'edit', hasError)
+async function renderEditPage(res, book, hasError = false, existedBook = false){
+   renderFormPage(res,book, 'edit', hasError, existedBook)
 }
 
 function saveCover(book, coverEncoded){
