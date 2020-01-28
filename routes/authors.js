@@ -27,7 +27,7 @@ router.get('/new',checkAuth.checkAuthenticated ,(req, res) =>{
 })
 
 // Create Author Route
-router.post('/', async (req,res) =>{
+router.post('/',checkAuth.checkAuthenticated, async (req,res) =>{
     const author = new Author({
         name: req.body.name
     })
@@ -63,7 +63,7 @@ router.get('/:id', async (req,res) =>{
     }
 })
 // Edit author
-router.get('/:id/edit', async (req,res) =>{
+router.get('/:id/edit',checkAuth.checkAuthenticated, async (req,res) =>{
     try {
         const author = await Author.findById(req.params.id)
         res.render('authors/edit', {author: author })
@@ -73,7 +73,7 @@ router.get('/:id/edit', async (req,res) =>{
     
 })
 // Update Author
-router.put('/:id', async (req, res) =>{
+router.put('/:id',checkAuth.checkAuthenticated, async (req, res) =>{
     let author
     try {
         author = await Author.findById(req.params.id)
@@ -101,7 +101,7 @@ router.put('/:id', async (req, res) =>{
     }   
 })
 //Delete Author
-router.delete('/:id', async(req, res) =>{
+router.delete('/:id',checkAuth.checkAuthenticated, async(req, res) =>{
     const existedAuthor = await Author.exists({"name": req.body.name})
     if(existedAuthor){
         res.render('authors/edit', {
