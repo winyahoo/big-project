@@ -9,18 +9,25 @@
 </head>
 <body>
 <div class="d1"></div>
-<div class="login">
+<div class="form">
     <form action="/auth/register" method="POST">
         <h2>Register Form</h2>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required class="txtb">   
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" required class="txtb">
-        <label for="password">Password</label>
-        <input type="text" id="Pw" name="password" required class="txtb">
-        <input class="btn" type="submit" value="Register">
+        <div class="form-item">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required class="txtb">   
+        </div>
+        <div class="form-item">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required class="txtb">
+        </div>
+        <div class="form-item"> 
+            <label for="password">Password</label>
+            <input type="text" id="Pw" name="password" required class="txtb">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+        <a href="/auth/login" style="text-decoration: none; color: #b1e2f8;">Login</a>
     </form>
-    <a href="/auth/login">Register</a>
+    
 </div>
 
 </body>
